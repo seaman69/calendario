@@ -142,5 +142,10 @@ public class CalendarioController {
             return new HttpEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    @GetMapping("/getcalendariobyusuario")
+    public HttpEntity<?> getCalendariobyusuer(@RequestParam("idusuario")long idusuario){
+        ArrayList<Calendario> calendarios= (ArrayList<Calendario>) calendariorepo.findAllByIdUsuario(idusuario);
+        return new HttpEntity<>(calendarios);
+    }
 
 }

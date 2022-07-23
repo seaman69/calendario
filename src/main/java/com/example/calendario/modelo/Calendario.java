@@ -13,6 +13,7 @@ public class Calendario {
     public static final String SEQ_NAME="calenario_sequence";
     @Id
     private long idCalendario;
+
     private long idUsuario;
     private Date fechaInicio;
     private Date fechaFin;
@@ -79,5 +80,9 @@ public class Calendario {
          }
         }
      return null;
+    }
+
+    public ArrayList<Contenedor> getContenedors() {
+        return contenedors;
     }
 }
