@@ -52,4 +52,8 @@ public class Dosis {
     public ArrayList<Date> getHoras() {
         return horas;
     }
+
+    public void setHoras(ArrayList<Date> horas) {
+        this.horas = horas;
+    }
 }

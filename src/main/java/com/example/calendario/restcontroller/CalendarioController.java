@@ -65,6 +65,7 @@ public class CalendarioController {
             Pastilla pastilla1=new Pastilla(idpastilla,nombre,peso);
             long iddosis= siguienteID.generateSequence(Dosis.SEQ_NAME);
             Dosis dosis=new Dosis(iddosis,cantidadpastillas,cantidadpastillas*peso,pastilla1);
+            dosis.setHoras(dates);
             long idcontenedor= siguienteID.generateSequence(Contenedor.SEQ_NAME);
             Contenedor contenedor=new Contenedor(idcontenedor,dosis,10);
             contenedor.setDosis(dosis);
