@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 @CrossOrigin(origins = "*")
@@ -49,15 +51,17 @@ public class CalendarioController {
     public HttpEntity<?>agregardosis(@RequestParam("idcalendario")long idcalendario,@RequestParam("idpastilla")long idpastilla,@RequestParam("cantidadpastillas")int cantidadpastillas, @RequestParam("hora_inicio")String hora_inicio,@RequestParam("intervalo") int intervalo){
         try{
             Date date_inicio=new SimpleDateFormat("HH:mm:ss").parse(hora_inicio);
-            Calendar calendar= Calendar.getInstance();
-            calendar.setTime(date_inicio);
+            /*Calendar calendar= Calendar.getInstance();
+            calendar.setTime(date_inicio);*/
             ArrayList<Date> dates= new ArrayList<>();
 
             while (date_inicio.before(new SimpleDateFormat("HH:mm:ss").parse("23:59:59"))){
                 dates.add(date_inicio);
-                calendar.add(Calendar.HOUR_OF_DAY,intervalo);
+                date_inicio=Date.from(date_inicio.toInstant().plus(Duration.ofHours(intervalo)));
+                System.out.println(date_inicio.toString());
+                /*calendar.add(Calendar.HOUR_OF_DAY,intervalo);
                 date_inicio=calendar.getTime();
-                calendar.setTime(date_inicio);
+                calendar.setTime(date_inicio);*/
             }
             HashMap<String,Object> pastilla= (HashMap<String, Object>) getPastilla(idpastilla+"");
             String nombre= (String) pastilla.get("name");
