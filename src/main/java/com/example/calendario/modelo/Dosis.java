@@ -48,4 +48,8 @@ public class Dosis {
     public void addhora(Date date){
         horas.add(date);
     }
+
+    public ArrayList<Date> getHoras() {
+        return horas;
+    }
 }
