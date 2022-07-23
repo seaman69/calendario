@@ -132,5 +132,15 @@ public class CalendarioController {
 
 
     }
+    @GetMapping("/getcalendario")
+    public HttpEntity<?> getCalendario(@RequestParam("idcalendario")long idcalendario){
+        if(calendariorepo.findById(idcalendario).isPresent()){
+            Calendario calendario=calendariorepo.findById(idcalendario).get();
+
+            return new HttpEntity<>(calendario);
+        }else{
+            return new HttpEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
