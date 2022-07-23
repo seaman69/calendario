@@ -53,10 +53,10 @@ public class CalendarioController {
             Date date_inicio=new SimpleDateFormat("HH:mm:ss").parse(hora_inicio);
             /*Calendar calendar= Calendar.getInstance();
             calendar.setTime(date_inicio);*/
-            ArrayList<Date> dates= new ArrayList<>();
+            ArrayList<Integer> dates= new ArrayList<>();
 
             while (date_inicio.before(new SimpleDateFormat("HH:mm:ss").parse("23:59:59"))){
-                dates.add(date_inicio);
+                dates.add(date_inicio.getHours());
                 date_inicio=Date.from(date_inicio.toInstant().plus(Duration.ofHours(intervalo)));
                 System.out.println(date_inicio.toString());
                 /*calendar.add(Calendar.HOUR_OF_DAY,intervalo);

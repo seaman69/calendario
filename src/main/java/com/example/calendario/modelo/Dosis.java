@@ -13,7 +13,7 @@ public class Dosis {
     private double totalmiligramos;
 
     private Pastilla pastilla;
-    private ArrayList<Date> horas = new ArrayList<Date>();
+    private ArrayList<Integer> horas = new ArrayList<>();
 
     public Dosis(long idDosis, int cantidadPastillas, double totalmiligramos, Pastilla pastilla) {
         this.idDosis = idDosis;
@@ -45,15 +45,15 @@ public class Dosis {
     public void setTotalmiligramos(int totalmiligramos) {
         this.totalmiligramos = totalmiligramos;
     }
-    public void addhora(Date date){
+    public void addhora(int date){
         horas.add(date);
     }
 
-    public ArrayList<Date> getHoras() {
+    public ArrayList<Integer> getHoras() {
         return horas;
     }
 
-    public void setHoras(ArrayList<Date> horas) {
+    public void setHoras(ArrayList<Integer> horas) {
         this.horas = horas;
     }
 }
