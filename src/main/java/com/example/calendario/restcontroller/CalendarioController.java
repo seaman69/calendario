@@ -1,8 +1,10 @@
 package com.example.calendario.restcontroller;
 
+import com.example.calendario.modelo.LogsTratamiento;
 import com.example.calendario.modelo.Tratamiento;
 import com.example.calendario.modelo.generacionids.SiguienteID;
 import com.example.calendario.repository.Calendariorepo;
+import com.example.calendario.repository.LogsRepo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @CrossOrigin(origins = "*")
@@ -27,6 +31,9 @@ public class CalendarioController {
     Calendariorepo calendariorepo;
     @Autowired
     SiguienteID siguienteID;
+
+    @Autowired
+    LogsRepo logsRepo;
 
     @PostMapping("/addtreatement")
     public HttpEntity<?> agregarcalendario(@RequestBody HashMap<String,Object> body){
@@ -41,6 +48,10 @@ public class CalendarioController {
         long id=siguienteID.generateSequence(Tratamiento.SEQ_NAME);
         Tratamiento tratamiento= new Tratamiento(id,idusuario,idPill,amount,hourstotake,startDate,finish,dayscompleted,daystreatement);
         tratamiento=calendariorepo.save(tratamiento);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        LogsTratamiento logsTratamiento=new LogsTratamiento(siguienteID.generateSequence(LogsTratamiento.SEQ_NAME),"creacion", tratamiento.getIdTratamiento(),dtf.format(now));
+        logsRepo.save(logsTratamiento);
         return new HttpEntity<>(tratamiento);
 
     }
@@ -69,6 +80,10 @@ public class CalendarioController {
             tratamiento.setTotalStatus(totalStatus);
             tratamiento.setStatusDescription(statusDescription);
             tratamiento=calendariorepo.save(tratamiento);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            LogsTratamiento logsTratamiento=new LogsTratamiento(siguienteID.generateSequence(LogsTratamiento.SEQ_NAME),"actualizacion", tratamiento.getIdTratamiento(),dtf.format(now));
+            logsRepo.save(logsTratamiento);
             return new HttpEntity<>(tratamiento);
         }else{
             return new HttpEntity<>(HttpStatus.BAD_REQUEST);
@@ -78,6 +93,10 @@ public class CalendarioController {
 
     @GetMapping("/gettreatement")
     public HttpEntity<?> gettratamiento(@RequestParam(value = "iduser")long idUsuario,@RequestParam(value = "status",required = false)String totalStatus){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        LogsTratamiento logsTratamiento=new LogsTratamiento(siguienteID.generateSequence(LogsTratamiento.SEQ_NAME),"consulta", 0,dtf.format(now));
+        logsRepo.save(logsTratamiento);
         if(totalStatus!=null){
             List<Tratamiento> tratamientos= calendariorepo.findAllByIdUsuarioAndTotalStatus(idUsuario,totalStatus);
             return new HttpEntity<>(tratamientos);
