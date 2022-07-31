@@ -46,7 +46,13 @@ public class CalendarioController {
         int daystreatement=(int) body.get("daysTreatement");
         long idusuario=((Number) body.get("iduser")).longValue();
         long id=siguienteID.generateSequence(Tratamiento.SEQ_NAME);
-        Tratamiento tratamiento= new Tratamiento(id,idusuario,idPill,amount,hourstotake,startDate,finish,dayscompleted,daystreatement);
+        Tratamiento tratamiento= null;
+        try {
+            tratamiento = new Tratamiento(id,idusuario,idPill,amount,hourstotake,startDate,finish,dayscompleted,daystreatement);
+        } catch (Exception e) {
+            System.out.println("holi");
+            return new HttpEntity<>("algo paso con las pastillas");
+        }
         tratamiento=calendariorepo.save(tratamiento);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();

@@ -18,6 +18,7 @@ public class Tratamiento {
     private long idUsuario;
     private long idPill;
     private int amount;
+
     private ArrayList<String> hourstoTake=new ArrayList<>();
     private String startdate;
     private String finishDate;
@@ -28,7 +29,8 @@ public class Tratamiento {
     private String totalStatus;
     private String statusDescription;
 
-    public Tratamiento(long idTratamiento,long idUsuario, long idPill, int amount, ArrayList<String> hourstoTake, String startdate, String finishDate, int daysCompleted, int daysTreatement) {
+    private String namePill;
+    public Tratamiento(long idTratamiento,long idUsuario, long idPill, int amount, ArrayList<String> hourstoTake, String startdate, String finishDate, int daysCompleted, int daysTreatement) throws Exception{
         this.idTratamiento = idTratamiento;
         this.idPill = idPill;
         this.amount = amount;
@@ -64,10 +66,12 @@ public class Tratamiento {
         }
         System.out.println(response.body());
         response.close();
+        namePill=(String) mpa.get("name");
         available=(Integer)mpa.get("pillCount");
         for (String s : hourstoTake) {
             statusday.put(s, false);
         }
+
 
     }
 
@@ -180,5 +184,13 @@ public class Tratamiento {
 
     public void setTotalStatus(String totalStatus) {
         this.totalStatus = totalStatus;
+    }
+
+    public String getNamePill() {
+        return namePill;
+    }
+
+    public void setNamePill(String namePill) {
+        this.namePill = namePill;
     }
 }
