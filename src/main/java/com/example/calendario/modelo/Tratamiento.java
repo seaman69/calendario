@@ -30,7 +30,7 @@ public class Tratamiento {
     private String statusDescription;
 
     private String namePill;
-    public Tratamiento(long idTratamiento,long idUsuario, long idPill, int amount, ArrayList<String> hourstoTake, String startdate, String finishDate, int daysCompleted, int daysTreatement) throws Exception{
+    public Tratamiento(long idTratamiento,long idUsuario, long idPill, int amount, ArrayList<String> hourstoTake, String startdate, String finishDate, int daysCompleted, int daysTreatement) throws Exception  {
         this.idTratamiento = idTratamiento;
         this.idPill = idPill;
         this.amount = amount;

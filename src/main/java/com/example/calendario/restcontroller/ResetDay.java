@@ -16,6 +16,17 @@ public class ResetDay {
     @Scheduled(cron= "0 0 0 * * *")
     public void resetday(){
         ArrayList<Tratamiento> tratamientos= (ArrayList<Tratamiento>) calendariorepo.findAll();
-
+        for (int i=0;i< tratamientos.size();i++){
+            Tratamiento tratamiento=tratamientos.get(i);
+            ArrayList<String> horas=tratamiento.getHourstoTake();
+            for(int j=0;j<horas.size();j++){
+                tratamiento.setStatusday(horas.get(i),false);
+            }
+            calendariorepo.save(tratamiento);
+        }
+    }
+    @Scheduled(fixedRate = 5000)
+    public void reportCurrentTime() {
+        System.out.println("The time is now {}");
     }
 }

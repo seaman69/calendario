@@ -112,5 +112,34 @@ public class CalendarioController {
         }
 
     }
+    @GetMapping("/getpillsbyhour")
+    public HttpEntity<?> getpastillas(@RequestParam("iduser")long iduser,@RequestParam("hour")String hour){
+        List<Tratamiento> tratamientos=calendariorepo.findAllByIdUsuario(iduser);
+        ArrayList<String> respuesta=new ArrayList<>();
+        for (Tratamiento tratamiento : tratamientos) {
+            ArrayList<String> horas = tratamiento.getHourstoTake();
+            for (String s : horas) {
+                int hora = Integer.parseInt(s.split(":")[0]);
+                if ((hora + 1) == Integer.parseInt(hour.split(":")[0]) || (hora - 1) == Integer.parseInt(hour.split(":")[0]) || hora == Integer.parseInt(hour.split(":")[0])) {
+                    respuesta.add(tratamiento.getNamePill());
+                    break;
+                }
+            }
+        }
+        return new HttpEntity<>(respuesta);
+    }
 
+    @PostMapping("/takepill")
+    public HttpEntity<?> tomopastilla(@RequestParam("id")long idtratamiento,@RequestParam("hora")String hour){
+        Tratamiento tratamiento=calendariorepo.findById(idtratamiento).get();
+        TreeMap<String,Boolean> horas=tratamiento.getStatusday();
+        tratamiento.setStatusday(hour,false);
+        calendariorepo.save(tratamiento);
+        return new HttpEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/getdaystatus")
+    public HttpEntity<?> status(@RequestParam("id")long idtratamiento){
+        Tratamiento tratamiento=calendariorepo.findById(idtratamiento).get();
+        return new HttpEntity<>(tratamiento.getStatusday());
+    }
 }
