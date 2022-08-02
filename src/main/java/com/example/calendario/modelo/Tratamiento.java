@@ -41,7 +41,7 @@ public class Tratamiento {
         this.daysTreatement = daysTreatement;
         this.idUsuario=idUsuario;
         HttpUrl.Builder urlBuilder
-                = HttpUrl.parse("http://localhost:8084/pills/getpill?"+idPill).newBuilder();
+                = HttpUrl.parse("https://pillservice.herokuapp.com/pills/getpill?"+idPill).newBuilder();
         urlBuilder.addQueryParameter("id", idPill+"");
 
         String url = urlBuilder.build().toString();
