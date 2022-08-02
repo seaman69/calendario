@@ -131,10 +131,10 @@ public class CalendarioController {
     }
 
     @PostMapping("/takepill")
-    public HttpEntity<?> tomopastilla(@RequestParam("id")long idtratamiento,@RequestParam("hora")String hour){
+    public HttpEntity<?> tomopastilla(@RequestParam("id")long idtratamiento,@RequestParam("hour")String hour){
         Tratamiento tratamiento=calendariorepo.findById(idtratamiento).get();
         TreeMap<String,Boolean> horas=tratamiento.getStatusday();
-        tratamiento.setStatusday(hour,false);
+        tratamiento.setStatusday(hour,true);
         calendariorepo.save(tratamiento);
         return new HttpEntity<>(HttpStatus.OK);
     }
