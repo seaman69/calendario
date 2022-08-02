@@ -53,6 +53,7 @@ public class CalendarioController {
             System.out.println("holi");
             return new HttpEntity<>("algo paso con las pastillas");
         }
+        tratamiento.setTotalStatus("not_completed");
         tratamiento=calendariorepo.save(tratamiento);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
