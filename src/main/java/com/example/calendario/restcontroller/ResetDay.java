@@ -13,7 +13,7 @@ public class ResetDay {
     @Autowired
     Calendariorepo calendariorepo;
 
-    @Scheduled(cron= "001***")
+    @Scheduled(cron= "0 0 1 * * *")
     public void resetday(){
         ArrayList<Tratamiento> tratamientos= (ArrayList<Tratamiento>) calendariorepo.findAll();
         for (int i=0;i< tratamientos.size();i++){
