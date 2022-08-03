@@ -25,8 +25,5 @@ public class ResetDay {
             calendariorepo.save(tratamiento);
         }
     }
-    @Scheduled(fixedRate = 5000)
-    public void reportCurrentTime() {
-        System.out.println("The time is now {}");
-    }
+
 }
