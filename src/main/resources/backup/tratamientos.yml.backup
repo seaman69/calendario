@@ -1,0 +1,18 @@
+
+server:
+  port: 8083
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://danielseaman:betelgeuse@cluster0.0pwrpay.mongodb.net/?retryWrites=true&w=majority
+      port: 27017
+      database: smartdrugsdb
+
+  application:
+    name: tratamientos
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://52.73.98.2:8099/eureka/
