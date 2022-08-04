@@ -6,3 +6,8 @@ spring:
       uri: http://44.208.218.57:8081
       username: kalkstein
       password: th3_eth3r
+
+  boot:
+    admin:
+      client:
+        url: http://34.232.227.255:8086
