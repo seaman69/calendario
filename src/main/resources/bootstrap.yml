@@ -11,3 +11,4 @@ spring:
     admin:
       client:
         url: http://34.232.227.255:8086
+
